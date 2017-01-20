@@ -25,6 +25,21 @@
 					</xsd:sequence>
 				</xsd:complexType>
 			</xsd:element>
+			
+			<xsd:element name="ConvertFeetToYardsRequest">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="feet" type="xsd:integer" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="ConvertFeetToYardsResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="yards" type="xsd:integer" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>			
 		</xsd:schema>
 	</wsdl:types>
 
@@ -34,12 +49,23 @@
 	<wsdl:message name="GetUserProfileResponse">
 		<wsdl:part name="result" element="tns:GetUserProfileResponse" />
 	</wsdl:message>
+	
+	<wsdl:message name="ConvertFeetToYardsRequestMessage">
+		<wsdl:part name="params" element="tns:ConvertFeetToYardsRequest" />
+	</wsdl:message>
+	<wsdl:message name="ConvertFeetToYardsResponseMessage">
+		<wsdl:part name="result" element="tns:ConvertFeetToYardsResponse" />
+	</wsdl:message>	
 
 	<wsdl:portType name="UserProfilePortType">
 		<wsdl:operation name="GetUserProfile">
 			<wsdl:input message="tns:GetUserProfileRequest" />
 			<wsdl:output message="tns:GetUserProfileResponse" />
 		</wsdl:operation>
+		<wsdl:operation name="ConvertFeetToYards">
+			<wsdl:input message="tns:ConvertFeetToYardsRequestMessage" />
+			<wsdl:output message="tns:ConvertFeetToYardsResponseMessage" />
+		</wsdl:operation>		
 	</wsdl:portType>
 
 	<wsdl:binding name="UserProfileBinding" type="tns:UserProfilePortType">
@@ -54,6 +80,15 @@
 				<soap:body use="literal" />
 			</wsdl:output>
 		</wsdl:operation>
+		<wsdl:operation name="ConvertFeetToYards">
+			<soap:operation soapAction="urn:ConvertFeetToYards" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>		
 	</wsdl:binding>
 
 	<wsdl:service name="UserProfileService">

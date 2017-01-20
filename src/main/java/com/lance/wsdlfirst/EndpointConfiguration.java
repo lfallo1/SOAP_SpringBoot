@@ -15,6 +15,7 @@ import org.springframework.context.annotation.ImportResource;
 
 import com.ctc.wstx.compat.QNameCreator;
 import com.lance.wsdlfirst.services.CustomersOrdersWSImpl;
+import com.lance.wsdlfirst.services.SuperheroServiceImpl;
 import com.lance.wsdlfirst.services.UserProfileServiceImpl;
 
 @Configuration
@@ -37,7 +38,7 @@ public class EndpointConfiguration {
     public EndpointImpl customerOrdersService() {
         Bus bus = (Bus) applicationContext.getBean(Bus.DEFAULT_BUS_ID);
         EndpointImpl endpoint = new EndpointImpl(bus, new CustomersOrdersWSImpl());
-        QName serviceName = QNameCreator.create("http://customerorders.services.lance.com/", "CustomerOrdersService", "");
+        QName serviceName = new QName("http://customerorders.services.lance.com/", "CustomerOrdersService");
         endpoint.setServiceName(serviceName);
         endpoint.setWsdlLocation("wsdl/CustomerOrders.wsdl");
         endpoint.publish("/CustomerOrders");
@@ -53,6 +54,18 @@ public class EndpointConfiguration {
         endpoint.setServiceName(serviceName);
         endpoint.setWsdlLocation("wsdl/UserProfile.wsdl");
         endpoint.publish("/UserProfileService");
+        return endpoint;
+    }
+    
+    @DependsOn("servletRegistrationBean")
+    @Bean
+    public EndpointImpl superheroService() {
+        Bus bus = (Bus) applicationContext.getBean(Bus.DEFAULT_BUS_ID);
+        EndpointImpl endpoint = new EndpointImpl(bus, new SuperheroServiceImpl());
+        QName serviceName = QNameCreator.create("http://superheroes.lance.com/", "SuperheroWebService", "");
+        endpoint.setServiceName(serviceName);
+        endpoint.setWsdlLocation("wsdl/Superhero.wsdl");
+        endpoint.publish("/SuperheroWebService");
         return endpoint;
     }
 	

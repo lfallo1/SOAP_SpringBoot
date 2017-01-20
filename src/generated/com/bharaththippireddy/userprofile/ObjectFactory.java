@@ -30,6 +30,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ConvertFeetToYardsResponse }
+     * 
+     */
+    public ConvertFeetToYardsResponse createConvertFeetToYardsResponse() {
+        return new ConvertFeetToYardsResponse();
+    }
+
+    /**
+     * Create an instance of {@link ConvertFeetToYardsRequest }
+     * 
+     */
+    public ConvertFeetToYardsRequest createConvertFeetToYardsRequest() {
+        return new ConvertFeetToYardsRequest();
+    }
+
+    /**
      * Create an instance of {@link GetUserProfile }
      * 
      */

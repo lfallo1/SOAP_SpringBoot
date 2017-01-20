@@ -45,7 +45,6 @@
 			<artifactId>cxf-spring-boot-starter-jaxws</artifactId>
 			<version>3.1.7</version>
 		</dependency>
-
 	</dependencies>
 
 	<build>
@@ -65,11 +64,14 @@
 						<configuration>
 							<sourceRoot>${basedir}/src/generated</sourceRoot>
 							<wsdlOptions>
+<!-- 								<wsdlOption> -->
+<!-- 									<wsdl>${basedir}/src/main/resources/wsdl/CustomerOrders.wsdl</wsdl> -->
+<!-- 								</wsdlOption> -->
+<!-- 								<wsdlOption> -->
+<!-- 									<wsdl>${basedir}/src/main/resources/wsdl/UserProfile.wsdl</wsdl> -->
+<!-- 								</wsdlOption> -->
 								<wsdlOption>
-									<wsdl>${basedir}/src/main/resources/wsdl/CustomerOrders.wsdl</wsdl>
-								</wsdlOption>
-								<wsdlOption>
-									<wsdl>${basedir}/src/main/resources/wsdl/UserProfile.wsdl</wsdl>
+									<wsdl>${basedir}/src/main/resources/wsdl/Superhero.wsdl</wsdl>
 								</wsdlOption>								
 							</wsdlOptions>
 						</configuration>

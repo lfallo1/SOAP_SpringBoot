@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema"  
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:tns="http://superheroes.lance.com/" 
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:ns1="http://schemas.xmlsoap.org/soap/http"
+	name="SuperheroWebService"
+	targetNamespace="http://superheroes.lance.com/">
+	
+	<!-- Abstract -->
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://superheroes.lance.com/">
+			<xsd:complexType name="Superhero">
+				<xsd:sequence>
+					<xsd:element name="name" type="xsd:string"/>
+					<xsd:element name="alias" type="xsd:string" />
+					<xsd:element name="power" type="xsd:integer" />
+					<xsd:element name="gender" type="tns:Gender" />
+					<xsd:element name="height" type="xsd:integer" />
+					<xsd:element name="weight" type="xsd:integer" />
+					<xsd:element name="suits" type="tns:Suit" maxOccurs="unbounded" />
+				</xsd:sequence>
+			</xsd:complexType>
+			
+			<xsd:simpleType name="Gender">
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="M" />
+					<xsd:enumeration value="F" />
+				</xsd:restriction>
+			</xsd:simpleType>
+								
+			<xsd:complexType name="Suit">
+				<xsd:sequence>
+					<xsd:element name="material" type="xsd:string"></xsd:element>
+					<xsd:element name="color" type="xsd:string"></xsd:element>
+					<xsd:element name="description" type="xsd:string"></xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>		
+			
+			<xsd:complexType name="getSuperheroDetailsRequest">
+				<xsd:sequence>
+					<xsd:element name="superheroId" type="xsd:integer"/>
+				</xsd:sequence>
+			</xsd:complexType>
+			
+			<xsd:complexType name="getSuperheroDetailsResponse">
+				<xsd:sequence>
+					<xsd:element name="superhero" type="tns:Superhero"/>
+				</xsd:sequence>
+			</xsd:complexType>			
+			
+			<xsd:complexType name="allSuperheroDetailsRequest" />
+			
+			<xsd:complexType name="allSuperheroDetailsResponse">
+				<xsd:sequence>
+					<xsd:element name="superhero" type="tns:Superhero" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:complexType>	
+			
+			<xsd:element name="getSuperheroDetailsRequest" type="tns:getSuperheroDetailsRequest" />
+			<xsd:element name="getSuperheroDetailsResponse" type="tns:getSuperheroDetailsResponse" />
+			<xsd:element name="allSuperheroDetailsRequest" type="tns:allSuperheroDetailsRequest" />
+			<xsd:element name="allSuperheroDetailsResponse" type="tns:allSuperheroDetailsResponse" />
+			
+		</xsd:schema>
+	</wsdl:types>
+	
+	<wsdl:message name="getSuperheroDetailsRequestMessage">
+		<wsdl:part element="tns:getSuperheroDetailsRequest" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="getSuperheroDetailsResponseMessage">
+		<wsdl:part element="tns:getSuperheroDetailsResponse" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="allSuperheroDetailsRequestMessage">
+		<wsdl:part element="tns:allSuperheroDetailsRequest" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="allSuperheroDetailsResponseMessage">
+		<wsdl:part element="tns:allSuperheroDetailsResponse" name="parameters" />
+	</wsdl:message>	
+	
+	<wsdl:portType name="SuperheroPortType">
+		<wsdl:operation name="getSuperheroDetails">
+			<wsdl:input message="tns:getSuperheroDetailsRequestMessage" name="getSuperheroDetailsRequestInput" />
+			<wsdl:output message="tns:getSuperheroDetailsResponseMessage" name="getSuperheroDetailsResponseOutput" />
+		</wsdl:operation>
+		<wsdl:operation name="allSuperheroDetails">
+			<wsdl:input message="tns:allSuperheroDetailsRequestMessage" name="allSuperheroDetailsRequestInput" />
+			<wsdl:output message="tns:allSuperheroDetailsResponseMessage" name="allSuperheroDetailsResponseOutput"/>
+		</wsdl:operation>		
+	</wsdl:portType>
+	
+	<!-- Physical -->
+	<wsdl:binding name="SuperheroServiceSoapBinding" type="tns:SuperheroPortType">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="getSuperheroDetails">
+			<soap:operation soapAction="" style="document" />
+			<wsdl:input name="getSuperheroDetailsRequestInput">
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="getSuperheroDetailsResponseOutput">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="allSuperheroDetails">
+			<soap:operation soapAction="" style="document" />
+			<wsdl:input name="allSuperheroDetailsRequestInput">
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="allSuperheroDetailsResponseOutput">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>		
+	</wsdl:binding>
+	
+	<wsdl:service name="SuperheroWebService">
+		<wsdl:port binding="tns:SuperheroServiceSoapBinding" name="SuperheroPort">
+			<soap:address location="http://localhost/services/SuperheroWebService/" />
+		</wsdl:port>
+	</wsdl:service>
+	
+</wsdl:definitions>
